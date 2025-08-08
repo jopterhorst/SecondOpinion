@@ -2,11 +2,15 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Ticket } from 'lucide-react'
+import { Menu, X, Ticket, Heart, Star } from 'lucide-react'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
+import { useTheme, getTheme } from '@/contexts/ThemeContext'
+import ThemeToggle from './ThemeToggle'
 
 const Navigation = () => {
+  const { theme: mode } = useTheme()
+  const theme = getTheme(mode)
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -28,12 +32,13 @@ const Navigation = () => {
 
   return (
     <motion.nav
-      className={cn(
-        'fixed top-0 w-full z-50 transition-all duration-500',
-        scrolled 
-          ? 'bg-black/80 backdrop-blur-lg border-b border-white/10' 
-          : 'bg-black/20 backdrop-blur-sm md:bg-transparent md:backdrop-blur-none'
-      )}
+      className="fixed top-0 w-full z-50 transition-all duration-500"
+      style={{
+        background: scrolled ? theme.nav.backgroundScrolled : theme.nav.background,
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
+        borderBottom: scrolled ? `1px solid ${theme.nav.border}` : 'none',
+      }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 sm:h-18 md:h-20">
@@ -42,19 +47,28 @@ const Navigation = () => {
             className="flex items-center space-x-2"
             whileHover={{ scale: 1.05 }}
           >
-            <Link href="/" className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-green-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">SO</span>
+            <Link href="/" className="flex items-center space-x-3">
+              <div 
+                className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg backdrop-blur-sm"
+                style={{
+                  background: `linear-gradient(135deg, ${theme.accent.primary}, ${theme.accent.secondary})`,
+                  border: `1px solid ${theme.button.border}`,
+                }}
+              >
+                <Heart className="w-5 h-5 text-white" />
               </div>
-              <div className="text-white">
-                <h1 className="text-xl font-bold">Second Opinion</h1>
-                <p className="text-xs text-gray-400">Upstream Kerstmusical</p>
+              <div style={{ color: theme.nav.text }}>
+                <h1 className="text-xl font-bold tracking-tight">Second Opinion</h1>
+                <p className="text-xs font-medium" style={{ color: theme.nav.textSecondary }}>
+                  <Star className="w-3 h-3 inline mr-1" />
+                  Kerstmusical in het Ziekenhuis
+                </p>
               </div>
             </Link>
           </motion.div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-6">
             {navItems.map((item, index) => (
               <motion.div
                 key={item.name}
@@ -65,17 +79,33 @@ const Navigation = () => {
               >
                 <Link
                   href={item.href}
-                  className="text-white hover:text-yellow-400 transition-colors duration-300 font-medium"
+                  className="font-medium transition-all duration-300 hover:scale-105 transform relative group"
+                  style={{ 
+                    color: theme.nav.text,
+                  }}
                 >
-                  {item.name}
+                  <span className="group-hover:text-green-400 transition-colors">
+                    {item.name}
+                  </span>
                 </Link>
               </motion.div>
             ))}
+            <ThemeToggle />
             <motion.a
               href="https://upstream.cafe/kerst"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-6 py-2 rounded-lg font-medium transition-all duration-300 flex items-center gap-2"
+              className="px-6 py-2.5 rounded-xl font-medium transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl transform hover:scale-105 text-white backdrop-blur-sm"
+              style={{
+                background: theme.button.primary,
+                border: `1px solid ${theme.button.border}`,
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = theme.button.primaryHover
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = theme.button.primary
+              }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               initial={{ opacity: 0, x: 20 }}
@@ -87,36 +117,40 @@ const Navigation = () => {
             </motion.a>
           </div>
 
-          {/* Mobile Menu Button */}
-          <motion.button
-            className="md:hidden text-white p-2 hover:bg-white/10 rounded-lg transition-colors"
-            onClick={() => setIsOpen(!isOpen)}
-            whileTap={{ scale: 0.95 }}
-          >
-            <AnimatePresence mode="wait">
-              {isOpen ? (
-                <motion.div
-                  key="close"
-                  initial={{ rotate: -90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 90, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <X className="w-6 h-6" />
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="menu"
-                  initial={{ rotate: 90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: -90, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Menu className="w-6 h-6" />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.button>
+          {/* Mobile Menu Button & Theme Toggle */}
+          <div className="md:hidden flex items-center space-x-3">
+            <ThemeToggle />
+            <motion.button
+              className="p-2 hover:bg-white/10 rounded-xl transition-colors backdrop-blur-sm"
+              style={{ color: theme.nav.text }}
+              onClick={() => setIsOpen(!isOpen)}
+              whileTap={{ scale: 0.95 }}
+            >
+              <AnimatePresence mode="wait">
+                {isOpen ? (
+                  <motion.div
+                    key="close"
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <X className="w-6 h-6" />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="menu"
+                    initial={{ rotate: 90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: -90, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <Menu className="w-6 h-6" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.button>
+          </div>
         </div>
       </div>
 
@@ -124,7 +158,11 @@ const Navigation = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="md:hidden bg-black/95 backdrop-blur-lg border-t border-white/10"
+            className="md:hidden backdrop-blur-xl"
+            style={{
+              background: theme.nav.backgroundScrolled,
+              borderTop: `1px solid ${theme.nav.border}`,
+            }}
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
@@ -140,7 +178,8 @@ const Navigation = () => {
                 >
                   <Link
                     href={item.href}
-                    className="block text-white hover:text-yellow-400 transition-colors duration-300 font-medium py-2"
+                    className="block font-medium py-3 px-2 rounded-lg transition-all duration-300 hover:bg-white/5 hover:scale-105 transform"
+                    style={{ color: theme.nav.text }}
                     onClick={() => setIsOpen(false)}
                   >
                     {item.name}
@@ -151,7 +190,11 @@ const Navigation = () => {
                 href="https://upstream.cafe/kerst"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full bg-gradient-to-r from-red-600 to-red-700 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2 mt-6"
+                className="w-full px-6 py-3.5 rounded-xl font-medium transition-all duration-300 flex items-center justify-center gap-2 mt-6 shadow-lg text-white backdrop-blur-sm"
+                style={{
+                  background: theme.button.primary,
+                  border: `1px solid ${theme.button.border}`,
+                }}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}

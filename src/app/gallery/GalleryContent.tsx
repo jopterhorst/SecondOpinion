@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Play, X, Image as ImageIcon, Video } from 'lucide-react'
+import { useTheme, getTheme } from '@/contexts/ThemeContext'
 
 interface MediaItem {
   id: number
@@ -15,6 +16,9 @@ interface MediaItem {
 }
 
 const GalleryContent = () => {
+  const { theme } = useTheme()
+  const themeStyles = getTheme(theme)
+  
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [selectedMedia, setSelectedMedia] = useState<MediaItem | null>(null)
 
@@ -104,15 +108,24 @@ const GalleryContent = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800">
+    <div 
+      className="min-h-screen"
+      style={{ background: `linear-gradient(to bottom, ${themeStyles.background.primary}, ${themeStyles.background.secondary})` }}
+    >
       {/* Hero Section */}
       <section className="pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto text-center">
           <motion.div {...fadeInUp}>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4 sm:mb-6">
+            <h1 
+              className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6"
+              style={{ color: themeStyles.text.primary }}
+            >
               Galerij
             </h1>
-            <p className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            <p 
+              className="text-lg sm:text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed"
+              style={{ color: themeStyles.text.secondary }}
+            >
               Beleef de magie van Second Opinion door onze foto&apos;s en video&apos;s. 
               Van achter de schermen tot de hoogtepunten van de voorstelling.
             </p>
@@ -134,9 +147,20 @@ const GalleryContent = () => {
                 onClick={() => setSelectedCategory(category.key)}
                 className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full font-medium transition-all duration-300 text-sm sm:text-base ${
                   selectedCategory === category.key
-                    ? 'bg-christmas-red-600 text-white shadow-lg scale-105'
-                    : 'bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white border border-gray-600'
+                    ? 'text-white shadow-lg scale-105'
+                    : 'border transition-all duration-300'
                 }`}
+                style={{
+                  backgroundColor: selectedCategory === category.key 
+                    ? themeStyles.accent.primary 
+                    : themeStyles.background.accent,
+                  color: selectedCategory === category.key 
+                    ? 'white' 
+                    : themeStyles.text.primary,
+                  borderColor: selectedCategory === category.key 
+                    ? 'transparent' 
+                    : themeStyles.button.border
+                }}
                 whileHover={{ scale: selectedCategory === category.key ? 1.05 : 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -167,13 +191,21 @@ const GalleryContent = () => {
                   className="group cursor-pointer"
                   onClick={() => openLightbox(item)}
                 >
-                  <div className="relative aspect-[4/3] bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+                  <div 
+                    className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
+                    style={{ backgroundColor: themeStyles.background.secondary }}
+                  >
                     {/* Placeholder for images */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-christmas-red-500/20 to-christmas-green-500/20 flex items-center justify-center">
+                    <div 
+                      className="absolute inset-0 flex items-center justify-center"
+                      style={{ 
+                        background: `linear-gradient(45deg, ${themeStyles.accent.primary}20, ${themeStyles.accent.secondary}20)` 
+                      }}
+                    >
                       {item.type === 'video' ? (
-                        <Video className="w-16 h-16 text-gray-400" />
+                        <Video className="w-16 h-16" style={{ color: themeStyles.text.accent }} />
                       ) : (
-                        <ImageIcon className="w-16 h-16 text-gray-400" />
+                        <ImageIcon className="w-16 h-16" style={{ color: themeStyles.text.accent }} />
                       )}
                     </div>
                     
@@ -211,8 +243,15 @@ const GalleryContent = () => {
               className="text-center py-20"
               {...fadeInUp}
             >
-              <p className="text-2xl text-gray-400 mb-4">Geen media gevonden</p>
-              <p className="text-gray-500">Probeer een andere categorie te selecteren</p>
+              <p 
+                className="text-2xl mb-4"
+                style={{ color: themeStyles.text.accent }}
+              >
+                Geen media gevonden
+              </p>
+              <p style={{ color: themeStyles.text.accent }}>
+                Probeer een andere categorie te selecteren
+              </p>
             </motion.div>
           )}
         </div>
@@ -244,21 +283,41 @@ const GalleryContent = () => {
               </button>
 
               {/* Media Content */}
-              <div className="bg-gray-900 rounded-lg overflow-hidden">
+              <div 
+                className="rounded-lg overflow-hidden"
+                style={{ backgroundColor: themeStyles.background.secondary }}
+              >
                 {selectedMedia.type === 'video' ? (
-                  <div className="aspect-video bg-gray-800 flex items-center justify-center">
-                    <Video className="w-24 h-24 text-gray-400" />
-                    <p className="text-gray-400 ml-4">Video Player Placeholder</p>
+                  <div 
+                    className="aspect-video flex items-center justify-center"
+                    style={{ backgroundColor: themeStyles.background.accent }}
+                  >
+                    <Video className="w-24 h-24" style={{ color: themeStyles.text.accent }} />
+                    <p className="ml-4" style={{ color: themeStyles.text.accent }}>
+                      Video Player Placeholder
+                    </p>
                   </div>
                 ) : (
-                  <div className="aspect-[4/3] bg-gradient-to-br from-christmas-red-500/20 to-christmas-green-500/20 flex items-center justify-center">
-                    <ImageIcon className="w-24 h-24 text-gray-400" />
+                  <div 
+                    className="aspect-[4/3] flex items-center justify-center"
+                    style={{ 
+                      background: `linear-gradient(45deg, ${themeStyles.accent.primary}20, ${themeStyles.accent.secondary}20)` 
+                    }}
+                  >
+                    <ImageIcon className="w-24 h-24" style={{ color: themeStyles.text.accent }} />
                   </div>
                 )}
                 
                 <div className="p-6">
-                  <h3 className="text-white text-xl font-bold mb-2">{selectedMedia.title}</h3>
-                  <p className="text-gray-400">{selectedMedia.alt}</p>
+                  <h3 
+                    className="text-xl font-bold mb-2"
+                    style={{ color: themeStyles.text.primary }}
+                  >
+                    {selectedMedia.title}
+                  </h3>
+                  <p style={{ color: themeStyles.text.secondary }}>
+                    {selectedMedia.alt}
+                  </p>
                 </div>
               </div>
             </motion.div>
@@ -267,22 +326,41 @@ const GalleryContent = () => {
       </AnimatePresence>
 
       {/* Call to Action */}
-      <section className="py-16 sm:py-20 bg-gray-900">
+      <section 
+        className="py-16 sm:py-20"
+        style={{ backgroundColor: themeStyles.background.secondary }}
+      >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div {...fadeInUp}>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6">
+            <h2 
+              className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6"
+              style={{ color: themeStyles.text.primary }}
+            >
               Kom Naar De Voorstelling
             </h2>
-            <p className="text-lg sm:text-xl text-gray-300 mb-6 sm:mb-8 max-w-2xl mx-auto">
+            <p 
+              className="text-lg sm:text-xl mb-6 sm:mb-8 max-w-2xl mx-auto"
+              style={{ color: themeStyles.text.secondary }}
+            >
               Ervaar Second Opinion live in Gebouw 055. Reserveer nu je gratis tickets voor deze bijzondere kerstmusical.
             </p>
             <motion.a
               href="https://upstream.cafe/kerst"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block bg-gradient-to-r from-christmas-red-600 to-christmas-red-700 hover:from-christmas-red-700 hover:to-christmas-red-800 text-white font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+              className="inline-block text-white font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+              style={{ 
+                background: themeStyles.button.primary,
+                backgroundImage: themeStyles.button.primary 
+              }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = themeStyles.button.primaryHover
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = themeStyles.button.primary
+              }}
             >
               Reserveer Je Tickets
             </motion.a>

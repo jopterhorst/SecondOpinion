@@ -3,8 +3,12 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Mail, MapPin, Clock, Send, CheckCircle, AlertCircle } from 'lucide-react'
+import { useTheme, getTheme } from '@/contexts/ThemeContext'
 
 const ContactContent = () => {
+  const { theme } = useTheme()
+  const themeStyles = getTheme(theme)
+  
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -76,15 +80,24 @@ const ContactContent = () => {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800">
+    <div 
+      className="min-h-screen"
+      style={{ background: `linear-gradient(to bottom, ${themeStyles.background.primary}, ${themeStyles.background.secondary})` }}
+    >
       {/* Hero Section */}
       <section className="pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div {...fadeInUp}>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4 sm:mb-6">
+            <h1 
+              className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6"
+              style={{ color: themeStyles.text.primary }}
+            >
               We Horen Graag Van Je
             </h1>
-            <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed opacity-90">
+            <p 
+              className="text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed opacity-90"
+              style={{ color: themeStyles.text.secondary }}
+            >
               Heb je vragen over Second Opinion of gewoon meer weten over Upstream? 
               We staan klaar om je te helpen.
             </p>
@@ -93,7 +106,10 @@ const ContactContent = () => {
       </section>
 
       {/* Contact Information Cards */}
-      <section className="py-20 bg-gray-800">
+      <section 
+        className="py-20"
+        style={{ backgroundColor: themeStyles.background.secondary }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16"
@@ -105,19 +121,43 @@ const ContactContent = () => {
             {contactInfo.map((info, index) => (
               <motion.div
                 key={index}
-                className="bg-gray-900 p-8 rounded-2xl shadow-lg border border-gray-700 text-center group hover:border-christmas-red-500/50 transition-all duration-300"
+                className="p-8 rounded-2xl shadow-lg border text-center group transition-all duration-300"
+                style={{ 
+                  backgroundColor: themeStyles.background.accent,
+                  borderColor: themeStyles.button.border 
+                }}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: index * 0.2 }}
                 whileHover={{ y: -5 }}
               >
-                <div className="w-16 h-16 bg-gradient-to-br from-christmas-red-500 to-christmas-red-600 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                <div 
+                  className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300"
+                  style={{ 
+                    background: `linear-gradient(45deg, ${themeStyles.accent.primary}, ${themeStyles.accent.primary}dd)` 
+                  }}
+                >
                   <info.icon className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-3">{info.title}</h3>
-                <p className="text-christmas-gold-400 text-lg font-semibold mb-2">{info.details}</p>
-                <p className="text-gray-400 text-sm">{info.description}</p>
+                <h3 
+                  className="text-2xl font-bold mb-3"
+                  style={{ color: themeStyles.text.primary }}
+                >
+                  {info.title}
+                </h3>
+                <p 
+                  className="text-lg font-semibold mb-2"
+                  style={{ color: themeStyles.accent.tertiary }}
+                >
+                  {info.details}
+                </p>
+                <p 
+                  className="text-sm"
+                  style={{ color: themeStyles.text.accent }}
+                >
+                  {info.description}
+                </p>
               </motion.div>
             ))}
           </motion.div>
@@ -125,29 +165,46 @@ const ContactContent = () => {
       </section>
 
       {/* Contact Form */}
-      <section className="py-20 bg-gray-900">
+      <section 
+        className="py-20"
+        style={{ backgroundColor: themeStyles.background.primary }}
+      >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             className="text-center mb-16"
             {...fadeInUp}
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            <h2 
+              className="text-4xl md:text-5xl font-bold mb-6"
+              style={{ color: themeStyles.text.primary }}
+            >
               Stuur Ons Een Bericht
             </h2>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+            <p 
+              className="text-xl max-w-2xl mx-auto"
+              style={{ color: themeStyles.text.secondary }}
+            >
               Vul het formulier in en we nemen zo snel mogelijk contact met je op.
             </p>
           </motion.div>
 
           <motion.form 
             onSubmit={handleSubmit}
-            className="bg-gray-800 p-8 md:p-12 rounded-2xl shadow-2xl border border-gray-700"
+            className="p-8 md:p-12 rounded-2xl shadow-2xl border"
+            style={{ 
+              backgroundColor: themeStyles.background.accent,
+              borderColor: themeStyles.button.border 
+            }}
             {...fadeInUp}
             transition={{ delay: 0.2 }}
           >
             <div className="grid md:grid-cols-2 gap-8 mb-8">
               <div>
-                <label htmlFor="name" className="block text-white font-semibold mb-3">
+                <label 
+                  htmlFor="name" 
+                  className="block font-semibold mb-3"
+                  style={{ color: themeStyles.text.primary }}
+                >
                   Naam *
                 </label>
                 <input
@@ -157,13 +214,23 @@ const ContactContent = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-christmas-red-500 focus:ring-2 focus:ring-christmas-red-500/20 transition-all duration-300"
+                  className="w-full px-4 py-3 border rounded-lg transition-all duration-300 focus:outline-none focus:ring-2"
+                  style={{ 
+                    backgroundColor: themeStyles.background.secondary,
+                    borderColor: themeStyles.button.border,
+                    color: themeStyles.text.primary,
+                    '--placeholder-color': themeStyles.text.accent
+                  } as React.CSSProperties}
                   placeholder="Je volledige naam"
                 />
               </div>
               
               <div>
-                <label htmlFor="email" className="block text-white font-semibold mb-3">
+                <label 
+                  htmlFor="email" 
+                  className="block font-semibold mb-3"
+                  style={{ color: themeStyles.text.primary }}
+                >
                   Email *
                 </label>
                 <input
@@ -173,14 +240,23 @@ const ContactContent = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-christmas-red-500 focus:ring-2 focus:ring-christmas-red-500/20 transition-all duration-300"
+                  className="w-full px-4 py-3 border rounded-lg transition-all duration-300 focus:outline-none focus:ring-2"
+                  style={{ 
+                    backgroundColor: themeStyles.background.secondary,
+                    borderColor: themeStyles.button.border,
+                    color: themeStyles.text.primary
+                  }}
                   placeholder="je@email.com"
                 />
               </div>
             </div>
 
             <div className="mb-8">
-              <label htmlFor="subject" className="block text-white font-semibold mb-3">
+              <label 
+                htmlFor="subject" 
+                className="block font-semibold mb-3"
+                style={{ color: themeStyles.text.primary }}
+              >
                 Onderwerp *
               </label>
               <select
@@ -189,7 +265,12 @@ const ContactContent = () => {
                 value={formData.subject}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-christmas-red-500 focus:ring-2 focus:ring-christmas-red-500/20 transition-all duration-300"
+                className="w-full px-4 py-3 border rounded-lg transition-all duration-300 focus:outline-none focus:ring-2"
+                style={{ 
+                  backgroundColor: themeStyles.background.secondary,
+                  borderColor: themeStyles.button.border,
+                  color: themeStyles.text.primary
+                }}
               >
                 <option value="">Selecteer een onderwerp</option>
                 {subjects.map((subject) => (
@@ -199,7 +280,11 @@ const ContactContent = () => {
             </div>
 
             <div className="mb-8">
-              <label htmlFor="message" className="block text-white font-semibold mb-3">
+              <label 
+                htmlFor="message" 
+                className="block font-semibold mb-3"
+                style={{ color: themeStyles.text.primary }}
+              >
                 Bericht *
               </label>
               <textarea
@@ -209,7 +294,12 @@ const ContactContent = () => {
                 onChange={handleChange}
                 required
                 rows={6}
-                className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-christmas-red-500 focus:ring-2 focus:ring-christmas-red-500/20 transition-all duration-300 resize-none"
+                className="w-full px-4 py-3 border rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 resize-none"
+                style={{ 
+                  backgroundColor: themeStyles.background.secondary,
+                  borderColor: themeStyles.button.border,
+                  color: themeStyles.text.primary
+                }}
                 placeholder="Deel je vraag of bericht met ons..."
               />
             </div>
@@ -217,9 +307,22 @@ const ContactContent = () => {
             <motion.button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-gradient-to-r from-christmas-red-600 to-christmas-red-700 hover:from-christmas-red-700 hover:to-christmas-red-800 disabled:from-gray-600 disabled:to-gray-700 text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 flex items-center justify-center gap-3 shadow-lg hover:shadow-xl"
+              className="w-full text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 flex items-center justify-center gap-3 shadow-lg hover:shadow-xl disabled:opacity-50"
+              style={{ 
+                background: isSubmitting ? themeStyles.button.secondary : themeStyles.button.primary
+              }}
               whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
               whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
+              onMouseEnter={(e) => {
+                if (!isSubmitting) {
+                  e.currentTarget.style.background = themeStyles.button.primaryHover
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!isSubmitting) {
+                  e.currentTarget.style.background = themeStyles.button.primary
+                }
+              }}
             >
               {isSubmitting ? (
                 <>
@@ -261,11 +364,23 @@ const ContactContent = () => {
           {/* Additional Information */}
           <motion.div {...fadeInUp} transition={{ delay: 0.2 }}>
             <div className="space-y-8 mt-16">
-              <div className="bg-gray-800 p-8 rounded-2xl shadow-lg border border-gray-700">
-                <h3 className="text-2xl font-bold text-white mb-4">
+              <div 
+                className="p-8 rounded-2xl shadow-lg border"
+                style={{ 
+                  backgroundColor: themeStyles.background.accent,
+                  borderColor: themeStyles.button.border 
+                }}
+              >
+                <h3 
+                  className="text-2xl font-bold mb-4"
+                  style={{ color: themeStyles.text.primary }}
+                >
                   Ticket Reserveringen
                 </h3>
-                <p className="text-gray-300 mb-6">
+                <p 
+                  className="mb-6"
+                  style={{ color: themeStyles.text.secondary }}
+                >
                   Toegang tot Second Opinion is gratis, maar reservering is vereist vanwege beperkte plaatsen. 
                   Tickets kunnen gereserveerd worden via onze externe partner.
                 </p>
@@ -273,43 +388,75 @@ const ContactContent = () => {
                   href="https://upstream.cafe/kerst" 
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block px-6 py-3 bg-christmas-red-600 text-white rounded-lg font-medium hover:bg-christmas-red-700 transition-colors"
+                  className="inline-block px-6 py-3 text-white rounded-lg font-medium transition-colors"
+                  style={{ backgroundColor: themeStyles.accent.primary }}
                 >
                   Reserveer Tickets
                 </a>
               </div>
 
-              <div className="bg-gradient-to-br from-christmas-red-900/20 to-christmas-green-900/20 p-8 rounded-2xl border border-christmas-red-500/20">
-                <h3 className="text-2xl font-bold text-white mb-4">
+              <div 
+                className="p-8 rounded-2xl border"
+                style={{ 
+                  background: `linear-gradient(45deg, ${themeStyles.accent.primary}10, ${themeStyles.accent.secondary}10)`,
+                  borderColor: `${themeStyles.accent.primary}30`
+                }}
+              >
+                <h3 
+                  className="text-2xl font-bold mb-4"
+                  style={{ color: themeStyles.text.primary }}
+                >
                   Vragen Over Geloof?
                 </h3>
-                <p className="text-gray-300 mb-4">
+                <p 
+                  className="mb-4"
+                  style={{ color: themeStyles.text.secondary }}
+                >
                   Second Opinion gaat niet alleen over entertainment - het is een uitnodiging om na te denken 
                   over hoop, vergeving en tweede kansen. Heb je vragen over geloof of zoek je iemand om mee te praten?
                 </p>
-                <p className="text-sm text-gray-400 italic">
+                <p 
+                  className="text-sm italic"
+                  style={{ color: themeStyles.text.accent }}
+                >
                   &ldquo;Want Ik weet wel, wat voor gedachten Ik over u denk, spreekt de HEERE: 
                   gedachten des vredes en niet des kwaads, dat Ik u geve een verwachte toekomst.&rdquo; - Jeremia 29:11
                 </p>
               </div>
 
-              <div className="bg-gray-800 p-8 rounded-2xl shadow-lg border border-gray-700">
-                <h3 className="text-2xl font-bold text-white mb-4">
+              <div 
+                className="p-8 rounded-2xl shadow-lg border"
+                style={{ 
+                  backgroundColor: themeStyles.background.accent,
+                  borderColor: themeStyles.button.border 
+                }}
+              >
+                <h3 
+                  className="text-2xl font-bold mb-4"
+                  style={{ color: themeStyles.text.primary }}
+                >
                   Volg Ons
                 </h3>
-                <p className="text-gray-300 mb-6">
+                <p 
+                  className="mb-6"
+                  style={{ color: themeStyles.text.secondary }}
+                >
                   Blijf op de hoogte van de laatste nieuwtjes over Second Opinion en andere Upstream evenementen.
                 </p>
                 <div className="flex gap-4">
                   <motion.button
-                    className="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
+                    className="px-4 py-2 text-white rounded-lg font-medium transition-colors"
+                    style={{ backgroundColor: themeStyles.accent.blue }}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
                     Facebook
                   </motion.button>
                   <motion.button
-                    className="px-4 py-2 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-lg font-medium hover:from-pink-600 hover:to-purple-700 transition-colors"
+                    className="px-4 py-2 text-white rounded-lg font-medium transition-colors"
+                    style={{ 
+                      background: `linear-gradient(45deg, ${themeStyles.accent.primary}, ${themeStyles.accent.secondary})` 
+                    }}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >

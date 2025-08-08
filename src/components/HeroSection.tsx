@@ -2,45 +2,72 @@
 
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight, Calendar, MapPin, Ticket, ChevronDown } from 'lucide-react'
+import { ArrowRight, Calendar, MapPin, Ticket, ChevronDown, Heart, Star, Clock } from 'lucide-react'
+import { useTheme, getTheme } from '@/contexts/ThemeContext'
 
 const HeroSection = () => {
-  // Pre-generate stable random values to avoid hydration issues
-  const backgroundElements = useMemo(() => {
-    return Array.from({ length: 20 }, (_, i) => ({
+  const { theme: mode } = useTheme()
+  const theme = getTheme(mode)
+  
+  // Pre-generate stable random values for snow particles
+  const snowflakes = useMemo(() => {
+    return Array.from({ length: 25 }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
-      animateX: Math.random() * 50 - 25,
-      duration: 3 + Math.random() * 2,
-      delay: Math.random() * 2,
+      size: 2 + Math.random() * 4, // Varying snowflake sizes
+      animateX: Math.random() * 20 - 10, // Side-to-side drift
+      duration: 8 + Math.random() * 6, // Slower, more realistic fall
+      delay: Math.random() * 4,
+      opacity: 0.3 + Math.random() * 0.4, // Varying opacity
     }))
   }, [])
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-emerald-950 via-red-950 to-amber-950 pt-16 sm:pt-18 md:pt-20">
-      {/* Background Image Overlay */}
-      <div className="absolute inset-0 bg-black/40 z-10" />
+    <section 
+      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 sm:pt-18 md:pt-20"
+      style={{
+        background: mode === 'light' 
+          ? `linear-gradient(135deg, rgba(248, 250, 252, 0.95), rgba(241, 245, 249, 0.95), rgba(226, 232, 240, 0.95))` 
+          : `linear-gradient(135deg, ${theme.background.primary}, ${theme.background.secondary})`,
+      }}
+    >
+      {/* Christmas-themed overlay for depth */}
+      <div 
+        className="absolute inset-0 z-10"
+        style={{
+          background: mode === 'light'
+            ? `linear-gradient(to bottom, rgba(220, 38, 38, 0.05), transparent, rgba(34, 197, 94, 0.05))`
+            : `linear-gradient(to bottom, ${theme.background.accent}, transparent, ${theme.background.accent})`,
+        }}
+      />
       
-      {/* Animated Background Elements */}
+      {/* Snow particles - Christmas atmosphere */}
       <div className="absolute inset-0 overflow-hidden">
-        {backgroundElements.map((element) => (
+        {snowflakes.map((snowflake) => (
           <motion.div
-            key={element.id}
-            className="absolute w-2 h-2 bg-yellow-400/20 rounded-full"
+            key={snowflake.id}
+            className="absolute rounded-full shadow-lg"
+            style={{
+              width: `${snowflake.size}px`,
+              height: `${snowflake.size}px`,
+              background: mode === 'light' 
+                ? 'rgba(220, 38, 38, 0.6)' // Christmas red snow in light mode
+                : 'rgba(255, 255, 255, 0.8)', // White snow in dark mode
+              left: `${snowflake.x}%`,
+              top: `${snowflake.y}%`,
+              opacity: snowflake.opacity,
+            }}
             animate={{
-              y: [0, -100, 0],
-              x: [0, element.animateX, 0],
-              opacity: [0.2, 0.8, 0.2],
+              y: [0, window.innerHeight + 100], // Fall from top to bottom
+              x: [0, snowflake.animateX, -snowflake.animateX, 0], // Gentle side-to-side drift
+              rotate: [0, 360], // Spinning snowflakes
             }}
             transition={{
-              duration: element.duration,
+              duration: snowflake.duration,
               repeat: Infinity,
-              delay: element.delay,
-            }}
-            style={{
-              left: `${element.x}%`,
-              top: `${element.y}%`,
+              delay: snowflake.delay,
+              ease: "linear",
             }}
           />
         ))}
@@ -54,105 +81,171 @@ const HeroSection = () => {
           transition={{ duration: 1, delay: 0.2 }}
           className="mb-8"
         >
-          <span className="inline-block px-4 py-2 rounded-full bg-red-600/20 text-red-300 text-sm font-medium border border-red-400/30 mb-6 mt-6 sm:mt-8">
-            Upstream Kerstmusical 2025
-          </span>
+          <motion.div
+            className="inline-flex items-center px-6 py-3 rounded-full backdrop-blur-sm mb-6 mt-6 sm:mt-8 shadow-lg border"
+            style={{
+              background: theme.background.accent,
+              borderColor: theme.button.border,
+              color: theme.text.secondary,
+            }}
+          >
+            <Star className="w-4 h-4 mr-2" style={{ color: theme.accent.tertiary }} />
+            <span className="text-sm font-medium">Kerstmusical in het Ziekenhuis</span>
+          </motion.div>
           
           <motion.h1 
-            className="text-6xl md:text-8xl lg:text-9xl font-bold text-white mb-6 tracking-tight"
+            className="text-6xl md:text-8xl lg:text-9xl font-bold mb-6 tracking-tight"
+            style={{ color: theme.text.primary }}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.4 }}
           >
             Second
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-red-400 to-green-400">
+            <span 
+              className="block text-transparent bg-clip-text drop-shadow-lg"
+              style={{
+                backgroundImage: `linear-gradient(135deg, ${theme.accent.primary}, ${theme.accent.tertiary}, ${theme.accent.secondary})`,
+              }}
+            >
               Opinion
             </span>
           </motion.h1>
           
-          <motion.p
-            className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+          <motion.p 
+            className="text-xl md:text-2xl mb-12 max-w-3xl mx-auto leading-relaxed"
+            style={{ color: theme.text.secondary }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.6 }}
           >
-            Een transformerende kerstmusical die perspectieven uitdaagt en 
-            harten opent voor de ware betekenis van hoop, verlossing en tweede kansen.
+            Een hartverwarmende kerstmusical over hoop, genezing en wonderbaarlijke momenten 
+            in het ziekenhuis tijdens de kerstdagen.
           </motion.p>
-        </motion.div>
 
-        {/* Show Information Cards */}
-        <motion.div
-          className="grid md:grid-cols-3 gap-6 mb-12 max-w-4xl mx-auto"
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.8 }}
-        >
-          <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-6 text-left">
-            <Calendar className="w-8 h-8 text-yellow-400 mb-3" />
-            <h3 className="text-white font-semibold text-lg mb-2">Voorstellingen</h3>
-            <p className="text-gray-300">13-14, 19-21 & 23-24 december 2025</p>
-            <p className="text-gray-400 text-sm">Avond & Matinee Shows</p>
-          </div>
-          
-          <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-6 text-left">
-            <MapPin className="w-8 h-8 text-green-400 mb-3" />
-            <h3 className="text-white font-semibold text-lg mb-2">Locatie</h3>
-            <p className="text-gray-300">Gebouw 055</p>
-            <p className="text-gray-400 text-sm">Condorweg 1, Apeldoorn</p>
-          </div>
-          
-          <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-6 text-left">
-            <Ticket className="w-8 h-8 text-red-400 mb-3" />
-            <h3 className="text-white font-semibold text-lg mb-2">Tickets</h3>
-            <p className="text-gray-300">Gratis Toegang</p>
-            <p className="text-gray-400 text-sm">Reservering Vereist</p>
-          </div>
-        </motion.div>
+          {/* Date & Location Info Cards */}
+          <motion.div 
+            className="grid md:grid-cols-3 gap-6 mb-12 max-w-4xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+          >
+            <div 
+              className="backdrop-blur-sm rounded-xl p-6 shadow-lg border"
+              style={{
+                background: theme.background.accent,
+                borderColor: theme.button.border,
+              }}
+            >
+              <Calendar className="w-8 h-8 mx-auto mb-3" style={{ color: theme.accent.primary }} />
+              <h3 className="font-semibold mb-2" style={{ color: theme.text.primary }}>Data</h3>
+              <p className="text-sm" style={{ color: theme.text.secondary }}>
+                13-14, 19-21 & 23-24<br />December 2025
+              </p>
+            </div>
+            
+            <div 
+              className="backdrop-blur-sm rounded-xl p-6 shadow-lg border"
+              style={{
+                background: theme.background.accent,
+                borderColor: theme.button.border,
+              }}
+            >
+              <MapPin className="w-8 h-8 mx-auto mb-3" style={{ color: theme.accent.secondary }} />
+              <h3 className="font-semibold mb-2" style={{ color: theme.text.primary }}>Locatie</h3>
+              <p className="text-sm" style={{ color: theme.text.secondary }}>
+                Gebouw 055<br />Condorweg 1, Apeldoorn
+              </p>
+            </div>
+            
+            <div 
+              className="backdrop-blur-sm rounded-xl p-6 shadow-lg border"
+              style={{
+                background: theme.background.accent,
+                borderColor: theme.button.border,
+              }}
+            >
+              <Clock className="w-8 h-8 mx-auto mb-3" style={{ color: theme.accent.tertiary }} />
+              <h3 className="font-semibold mb-2" style={{ color: theme.text.primary }}>Tijden</h3>
+              <p className="text-sm" style={{ color: theme.text.secondary }}>
+                Avondvoorstellingen<br />19:30 - 21:30
+              </p>
+            </div>
+          </motion.div>
 
-        {/* Call to Action Buttons */}
-        <motion.div
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 1 }}
-        >
-          <motion.a
-            href="https://upstream.cafe/kerst"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 flex items-center gap-2 shadow-xl hover:shadow-2xl"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+          {/* CTA Buttons */}
+          <motion.div 
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-24"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1 }}
           >
-            Reserveer Je Plaatsen
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </motion.a>
-          
-          <motion.button
-            onClick={() => {
-              const aboutSection = document.getElementById('about')
-              aboutSection?.scrollIntoView({ behavior: 'smooth' })
-            }}
-            className="group bg-transparent border-2 border-white/30 hover:border-white/60 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 flex items-center gap-2 hover:bg-white/10"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Meer Informatie
-            <ChevronDown className="w-5 h-5 group-hover:translate-y-1 transition-transform" />
-          </motion.button>
+            <motion.a
+              href="https://upstream.cafe/kerst"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center px-8 py-4 rounded-xl font-semibold transition-all duration-300 shadow-lg text-white backdrop-blur-sm"
+              style={{
+                background: theme.button.primary,
+                border: `2px solid ${theme.accent.primary}`,
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = theme.button.primaryHover
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = theme.button.primary
+              }}
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Ticket className="w-5 h-5 mr-2" />
+              Tickets Reserveren
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </motion.a>
+            
+            <motion.a
+              href="#about"
+              className="inline-flex items-center px-8 py-4 rounded-xl font-semibold transition-all duration-300 backdrop-blur-sm border"
+              style={{
+                background: theme.button.secondary,
+                borderColor: theme.button.secondaryBorder,
+                color: theme.text.primary,
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = theme.button.secondaryHover
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = theme.button.secondary
+              }}
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Lees Meer
+              <ChevronDown className="w-5 h-5 ml-2" />
+            </motion.a>
+          </motion.div>
         </motion.div>
       </div>
 
       {/* Scroll Indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
+      <motion.div 
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 1.5 }}
       >
-        <div className="w-6 h-10 border-2 border-white/40 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-white/60 rounded-full mt-2" />
-        </div>
+        <motion.div
+          className="w-6 h-10 rounded-full border-2 flex justify-center"
+          style={{ borderColor: theme.button.secondaryBorder }}
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          <motion.div
+            className="w-1 h-3 rounded-full mt-2"
+            style={{ background: theme.text.accent }}
+            animate={{ y: [0, 12, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          />
+        </motion.div>
       </motion.div>
     </section>
   )

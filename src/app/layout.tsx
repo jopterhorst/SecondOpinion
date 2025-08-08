@@ -1,16 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Be_Vietnam_Pro } from "next/font/google";
 import "./globals.css";
 import { musicalStructuredData, organizationStructuredData } from '@/lib/structuredData'
+import { ThemeProvider } from '@/contexts/ThemeContext'
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const beVietnam = Be_Vietnam_Pro({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-be-vietnam",
 });
 
 export const metadata: Metadata = {
@@ -57,9 +54,11 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white`}
+        className={`${beVietnam.variable} antialiased font-sans`}
       >
-        {children}
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

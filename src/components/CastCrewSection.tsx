@@ -3,8 +3,11 @@
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
 import { Users, Heart, Star, Music } from 'lucide-react'
+import { useTheme, getTheme } from '@/contexts/ThemeContext'
 
 const CastCrewSection = () => {
+  const { theme: mode } = useTheme()
+  const theme = getTheme(mode)
   // Pre-generate stable random values to avoid hydration issues
   const backgroundElements = useMemo(() => {
     return Array.from({ length: 15 }, (_, i) => ({
@@ -88,17 +91,28 @@ const CastCrewSection = () => {
   ]
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div 
+      className="min-h-screen"
+      style={{ background: theme.background.primary }}
+    >
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-red-900 via-green-900 to-amber-900 pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20 md:pb-32 overflow-hidden">
-        <div className="absolute inset-0 bg-black/40" />
+      <section 
+        className="relative pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20 md:pb-32 overflow-hidden"
+        style={{
+          background: `linear-gradient(135deg, ${theme.accent.primary}dd, ${theme.accent.secondary}dd, ${theme.accent.tertiary}dd)`,
+        }}
+      >
+        <div 
+          className="absolute inset-0"
+          style={{ background: mode === 'light' ? 'rgba(0, 0, 0, 0.4)' : 'rgba(0, 0, 0, 0.6)' }}
+        />
         
         {/* Animated Background Elements */}
         <div className="absolute inset-0">
           {backgroundElements.map((element) => (
             <motion.div
               key={element.id}
-              className="absolute w-2 h-2 bg-yellow-400/20 rounded-full"
+              className="absolute w-2 h-2 rounded-full"
               animate={{
                 y: [0, -50, 0],
                 x: [0, element.animateX, 0],
@@ -112,6 +126,7 @@ const CastCrewSection = () => {
               style={{
                 left: `${element.x}%`,
                 top: `${element.y}%`,
+                background: `${theme.accent.tertiary}33`, // amber with opacity
               }}
             />
           ))}
@@ -119,16 +134,34 @@ const CastCrewSection = () => {
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div {...fadeInUp}>
-            <span className="inline-block px-4 py-2 rounded-full bg-red-600/20 text-red-300 text-sm font-medium border border-red-400/30 mb-6">
+            <span 
+              className="inline-block px-4 py-2 rounded-full text-sm font-medium border mb-6"
+              style={{
+                background: `${theme.accent.primary}33`,
+                color: theme.text.primary,
+                borderColor: `${theme.accent.primary}4d`,
+              }}
+            >
               Ontmoet Onze Cast & Crew
             </span>
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight">
+            <h1 
+              className="text-5xl md:text-7xl font-bold mb-6 tracking-tight"
+              style={{ color: theme.text.primary }}
+            >
               De Gezichten Achter
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-red-400 to-green-400">
+              <span 
+                className="block text-transparent bg-clip-text"
+                style={{
+                  backgroundImage: `linear-gradient(135deg, ${theme.accent.tertiary}, ${theme.accent.primary}, ${theme.accent.secondary})`,
+                }}
+              >
                 Second Opinion
               </span>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            <p 
+              className="text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed"
+              style={{ color: theme.text.secondary }}
+            >
               Ontdek de getalenteerde individuen die dit transformerende verhaal tot leven brengen, 
               elk met hun unieke gaven om een onvergetelijke ervaring te creëren.
             </p>
@@ -140,10 +173,16 @@ const CastCrewSection = () => {
       <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div className="text-center mb-16" {...fadeInUp}>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            <h2 
+              className="text-4xl md:text-5xl font-bold mb-6"
+              style={{ color: theme.text.primary }}
+            >
               Hoofdpersonages
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p 
+              className="text-xl max-w-3xl mx-auto"
+              style={{ color: theme.text.secondary }}
+            >
               Elk personage vertegenwoordigt een andere reis van geloof, twijfel en ontdekking, 
               verweven om een krachtig verhaal van verlossing te vertellen.
             </p>
@@ -159,15 +198,26 @@ const CastCrewSection = () => {
             {mainCharacters.map((character) => (
               <motion.div
                 key={character.name}
-                className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300"
+                className="rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300"
+                style={{
+                  background: theme.background.accent,
+                }}
                 variants={fadeInUp}
                 whileHover={{ y: -5 }}
               >
                 <div className="md:flex">
                   {/* Character Image Placeholder */}
-                  <div className="md:w-1/2 h-64 md:h-auto bg-gradient-to-br from-red-200 via-green-200 to-amber-200 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                      <div className="text-center text-gray-700">
+                  <div 
+                    className="md:w-1/2 h-64 md:h-auto relative overflow-hidden"
+                    style={{
+                      background: `linear-gradient(135deg, ${theme.accent.primary}33, ${theme.accent.secondary}33, ${theme.accent.tertiary}33)`,
+                    }}
+                  >
+                    <div 
+                      className="absolute inset-0 flex items-center justify-center"
+                      style={{ background: mode === 'light' ? 'rgba(0, 0, 0, 0.2)' : 'rgba(0, 0, 0, 0.4)' }}
+                    >
+                      <div className="text-center" style={{ color: theme.text.primary }}>
                         <character.icon className="w-16 h-16 mx-auto mb-4 opacity-60" />
                         <p className="text-lg font-medium">Personage Foto</p>
                         <p className="text-sm opacity-75">Binnenkort Beschikbaar</p>
@@ -178,11 +228,24 @@ const CastCrewSection = () => {
                   {/* Character Info */}
                   <div className="md:w-1/2 p-8">
                     <div className="mb-4">
-                      <h3 className="text-2xl font-bold text-gray-900 mb-2">{character.name}</h3>
-                      <h4 className="text-lg font-semibold text-red-600 mb-4">{character.character}</h4>
+                      <h3 
+                        className="text-2xl font-bold mb-2"
+                        style={{ color: theme.text.primary }}
+                      >
+                        {character.name}
+                      </h3>
+                      <h4 
+                        className="text-lg font-semibold mb-4"
+                        style={{ color: theme.accent.primary }}
+                      >
+                        {character.character}
+                      </h4>
                     </div>
 
-                    <p className="text-gray-700 leading-relaxed mb-6">
+                    <p 
+                      className="leading-relaxed mb-6"
+                      style={{ color: theme.text.secondary }}
+                    >
                       {character.description}
                     </p>
 
@@ -190,7 +253,11 @@ const CastCrewSection = () => {
                       {character.traits.map((trait) => (
                         <span
                           key={trait}
-                          className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium"
+                          className="px-3 py-1 rounded-full text-sm font-medium"
+                          style={{
+                            background: theme.background.secondary,
+                            color: theme.text.primary,
+                          }}
                         >
                           {trait}
                         </span>
@@ -205,13 +272,22 @@ const CastCrewSection = () => {
       </section>
 
       {/* Creative Team Section */}
-      <section className="py-24 bg-white">
+      <section 
+        className="py-24"
+        style={{ background: theme.background.secondary }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div className="text-center mb-16" {...fadeInUp}>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            <h2 
+              className="text-4xl md:text-5xl font-bold mb-6"
+              style={{ color: theme.text.primary }}
+            >
               Creatief Team
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p 
+              className="text-xl max-w-3xl mx-auto"
+              style={{ color: theme.text.secondary }}
+            >
               De visionaire kunstenaars en gemeenteleiders die Second Opinion 
               van concept naar podium brengen met excellentie en passie.
             </p>
@@ -232,9 +308,17 @@ const CastCrewSection = () => {
                 whileHover={{ y: -5 }}
               >
                 {/* Team Member Photo Placeholder */}
-                <div className="w-48 h-48 mx-auto mb-6 bg-gradient-to-br from-red-200 to-green-200 rounded-2xl overflow-hidden shadow-lg">
-                  <div className="w-full h-full bg-black/20 flex items-center justify-center">
-                    <div className="text-center text-gray-700">
+                <div 
+                  className="w-48 h-48 mx-auto mb-6 rounded-2xl overflow-hidden shadow-lg"
+                  style={{
+                    background: `linear-gradient(135deg, ${theme.accent.primary}33, ${theme.accent.secondary}33)`,
+                  }}
+                >
+                  <div 
+                    className="w-full h-full flex items-center justify-center"
+                    style={{ background: mode === 'light' ? 'rgba(0, 0, 0, 0.2)' : 'rgba(0, 0, 0, 0.4)' }}
+                  >
+                    <div className="text-center" style={{ color: theme.text.primary }}>
                       <Users className="w-12 h-12 mx-auto mb-2 opacity-60" />
                       <p className="text-sm font-medium">Team Foto</p>
                       <p className="text-xs opacity-75">Binnenkort Beschikbaar</p>
@@ -242,9 +326,24 @@ const CastCrewSection = () => {
                   </div>
                 </div>
 
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{member.name}</h3>
-                <h4 className="text-lg font-semibold text-red-600 mb-4">{member.role}</h4>
-                <p className="text-gray-600 leading-relaxed">{member.description}</p>
+                <h3 
+                  className="text-xl font-bold mb-2"
+                  style={{ color: theme.text.primary }}
+                >
+                  {member.name}
+                </h3>
+                <h4 
+                  className="text-lg font-semibold mb-4"
+                  style={{ color: theme.accent.primary }}
+                >
+                  {member.role}
+                </h4>
+                <p 
+                  className="leading-relaxed"
+                  style={{ color: theme.text.secondary }}
+                >
+                  {member.description}
+                </p>
               </motion.div>
             ))}
           </motion.div>

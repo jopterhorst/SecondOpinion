@@ -1,10 +1,13 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Heart, Mail, MapPin, Facebook, Instagram, Youtube } from 'lucide-react'
+import { Heart, Mail, MapPin, Facebook, Instagram, Youtube, Star } from 'lucide-react'
 import Link from 'next/link'
+import { useTheme, getTheme } from '@/contexts/ThemeContext'
 
 const Footer = () => {
+  const { theme: mode } = useTheme()
+  const theme = getTheme(mode)
   const fadeInUp = {
     initial: { opacity: 0, y: 30 },
     whileInView: { opacity: 1, y: 0 },
@@ -36,39 +39,49 @@ const Footer = () => {
   }
 
   const socialLinks = [
-    { name: 'Facebook', icon: Facebook, href: '#', color: 'hover:text-blue-500' },
-    { name: 'Instagram', icon: Instagram, href: '#', color: 'hover:text-pink-500' },
-    { name: 'Youtube', icon: Youtube, href: '#', color: 'hover:text-red-500' },
+    { name: 'Facebook', icon: Facebook, href: '#', color: theme.accent.primary },
+    { name: 'Instagram', icon: Instagram, href: '#', color: theme.accent.secondary },
+    { name: 'Youtube', icon: Youtube, href: '#', color: theme.accent.tertiary },
   ]
 
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer style={{ background: theme.background.primary, color: theme.text.primary }}>
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid lg:grid-cols-4 gap-12">
           {/* Brand Section */}
           <motion.div className="lg:col-span-1" {...fadeInUp}>
-            <div className="flex items-center space-x-2 mb-6">
-              <div className="w-12 h-12 bg-gradient-to-br from-christmas-red-500 to-christmas-green-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">SO</span>
+            <div className="flex items-center space-x-3 mb-6">
+              <div 
+                className="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg"
+                style={{
+                  background: `linear-gradient(135deg, ${theme.accent.primary}, ${theme.accent.secondary})`,
+                }}
+              >
+                <Heart className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h3 className="text-xl font-bold">Second Opinion</h3>
-                <p className="text-sm text-gray-400">Upstream Kerstmusical 2025</p>
+                <h3 className="text-xl font-bold" style={{ color: theme.text.primary }}>
+                  Second Opinion
+                </h3>
+                <p className="text-sm flex items-center" style={{ color: theme.text.accent }}>
+                  <Star className="w-3 h-3 mr-1" />
+                  Upstream Kerstmusical 2025
+                </p>
               </div>
             </div>
-            <p className="text-gray-300 mb-6 leading-relaxed">
-              Een transformerende kerstmusical die harten opent voor hoop, verlossing en tweede kansen.
+            <p className="mb-6 leading-relaxed" style={{ color: theme.text.secondary }}>
+              Een hartverwarmende kerstmusical over hoop, genezing en wonder in het ziekenhuis.
             </p>
             
             {/* Contact Info */}
             <div className="space-y-3 text-sm">
-              <div className="flex items-center gap-3 text-gray-300">
-                <Mail className="w-4 h-4 text-christmas-red-400" />
+              <div className="flex items-center gap-3" style={{ color: theme.text.secondary }}>
+                <Mail className="w-4 h-4" style={{ color: theme.accent.primary }} />
                 <span>info@upstream.nl</span>
               </div>
-              <div className="flex items-center gap-3 text-gray-300">
-                <MapPin className="w-4 h-4 text-christmas-gold-400" />
+              <div className="flex items-center gap-3" style={{ color: theme.text.secondary }}>
+                <MapPin className="w-4 h-4" style={{ color: theme.accent.tertiary }} />
                 <span>Gebouw 055, Condorweg 1, Apeldoorn</span>
               </div>
             </div>
@@ -76,7 +89,10 @@ const Footer = () => {
 
           {/* Musical Links */}
           <motion.div {...fadeInUp} transition={{ delay: 0.1 }}>
-            <h4 className="text-lg font-semibold mb-6 text-christmas-red-400">
+            <h4 
+              className="text-lg font-semibold mb-6"
+              style={{ color: theme.accent.primary }}
+            >
               Second Opinion
             </h4>
             <ul className="space-y-3">
@@ -87,16 +103,22 @@ const Footer = () => {
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-gray-300 hover:text-white transition-colors duration-300 text-sm"
+                      className="text-sm transition-all duration-300 hover:scale-105 transform inline-block group"
+                      style={{ color: theme.text.secondary }}
                     >
-                      {link.name}
+                      <span className="group-hover:text-slate-50 transition-colors">
+                        {link.name}
+                      </span>
                     </a>
                   ) : (
                     <Link 
                       href={link.href}
-                      className="text-gray-300 hover:text-white transition-colors duration-300 text-sm"
+                      className="text-sm transition-all duration-300 hover:scale-105 transform inline-block group"
+                      style={{ color: theme.text.secondary }}
                     >
-                      {link.name}
+                      <span className="group-hover:text-slate-50 transition-colors">
+                        {link.name}
+                      </span>
                     </Link>
                   )}
                 </li>
@@ -106,7 +128,10 @@ const Footer = () => {
 
           {/* Upstream Links */}
           <motion.div {...fadeInUp} transition={{ delay: 0.2 }}>
-            <h4 className="text-lg font-semibold mb-6 text-christmas-green-400">
+            <h4 
+              className="text-lg font-semibold mb-6"
+              style={{ color: theme.accent.secondary }}
+            >
               Upstream
             </h4>
             <ul className="space-y-3">
@@ -114,9 +139,12 @@ const Footer = () => {
                 <li key={link.name}>
                   <Link 
                     href={link.href}
-                    className="text-gray-300 hover:text-white transition-colors duration-300 text-sm"
+                    className="text-sm transition-all duration-300 hover:scale-105 transform inline-block group"
+                    style={{ color: theme.text.secondary }}
                   >
-                    {link.name}
+                    <span className="group-hover:text-slate-50 transition-colors">
+                      {link.name}
+                    </span>
                   </Link>
                 </li>
               ))}
@@ -125,7 +153,10 @@ const Footer = () => {
 
           {/* Practical Links */}
           <motion.div {...fadeInUp} transition={{ delay: 0.3 }}>
-            <h4 className="text-lg font-semibold mb-6 text-christmas-gold-400">
+            <h4 
+              className="text-lg font-semibold mb-6"
+              style={{ color: theme.accent.tertiary }}
+            >
               Praktisch
             </h4>
             <ul className="space-y-3">
@@ -133,9 +164,12 @@ const Footer = () => {
                 <li key={link.name}>
                   <Link 
                     href={link.href}
-                    className="text-gray-300 hover:text-white transition-colors duration-300 text-sm"
+                    className="text-sm transition-all duration-300 hover:scale-105 transform inline-block group"
+                    style={{ color: theme.text.secondary }}
                   >
-                    {link.name}
+                    <span className="group-hover:text-slate-50 transition-colors">
+                      {link.name}
+                    </span>
                   </Link>
                 </li>
               ))}
@@ -145,25 +179,39 @@ const Footer = () => {
 
         {/* Newsletter Signup */}
         <motion.div 
-          className="mt-16 pt-8 border-t border-gray-800"
+          className="mt-16 pt-8"
+          style={{ borderTop: `1px solid ${theme.border}` }}
           {...fadeInUp}
           transition={{ delay: 0.4 }}
         >
           <div className="max-w-md mx-auto text-center lg:max-w-2xl">
-            <h4 className="text-xl font-semibold mb-4">
+            <h4 
+              className="text-xl font-semibold mb-4"
+              style={{ color: theme.text.primary }}
+            >
               Blijf Op De Hoogte
             </h4>
-            <p className="text-gray-300 mb-6">
+            <p 
+              className="mb-6"
+              style={{ color: theme.text.secondary }}
+            >
               Ontvang updates over Second Opinion en andere Upstream evenementen
             </p>
             <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
               <input
                 type="email"
                 placeholder="je@email.nl"
-                className="flex-1 px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-christmas-red-500 focus:border-transparent text-white placeholder-gray-400"
+                className="flex-1 px-4 py-3 rounded-lg border focus:ring-2 focus:ring-red-600 focus:border-transparent transition-all text-white placeholder-slate-400"
+                style={{
+                  background: theme.background.secondary,
+                  borderColor: theme.border,
+                }}
               />
               <motion.button
-                className="px-6 py-3 bg-gradient-to-r from-christmas-red-600 to-christmas-green-600 text-white rounded-lg font-medium hover:from-christmas-red-700 hover:to-christmas-green-700 transition-all duration-300"
+                className="px-6 py-3 text-white rounded-lg font-medium transition-all duration-300 shadow-lg"
+                style={{
+                  background: `linear-gradient(135deg, ${theme.accent.primary}, ${theme.accent.secondary})`,
+                }}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -175,7 +223,7 @@ const Footer = () => {
       </div>
 
       {/* Bottom Footer */}
-      <div className="border-t border-gray-800">
+      <div style={{ borderTop: `1px solid ${theme.border}` }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
             {/* Copyright */}
@@ -184,12 +232,12 @@ const Footer = () => {
               {...fadeInUp}
               transition={{ delay: 0.5 }}
             >
-              <p className="text-gray-400 text-sm">
+              <p className="text-sm" style={{ color: theme.text.accent }}>
                 © {currentYear} Upstream. Alle rechten voorbehouden.
               </p>
-              <p className="text-gray-500 text-xs mt-1">
+              <p className="text-xs mt-1 flex items-center justify-center lg:justify-start" style={{ color: theme.text.accent }}>
                 Website gemaakt met{' '}
-                <Heart className="w-3 h-3 inline text-christmas-red-400" />
+                <Heart className="w-3 h-3 mx-1" style={{ color: theme.accent.primary }} />
                 {' '}voor het delen van hoop en liefde
               </p>
             </motion.div>
@@ -200,7 +248,7 @@ const Footer = () => {
               {...fadeInUp}
               transition={{ delay: 0.6 }}
             >
-              <span className="text-gray-400 text-sm hidden sm:block">
+              <span className="text-sm hidden sm:block" style={{ color: theme.text.accent }}>
                 Volg ons:
               </span>
               <div className="flex gap-4">
@@ -208,8 +256,13 @@ const Footer = () => {
                   <motion.a
                     key={social.name}
                     href={social.href}
-                    className={`text-gray-400 ${social.color} transition-colors duration-300`}
-                    whileHover={{ scale: 1.2, y: -2 }}
+                    className="transition-all duration-300"
+                    style={{ color: theme.text.accent }}
+                    whileHover={{ 
+                      scale: 1.2, 
+                      y: -2,
+                      color: social.color,
+                    }}
                     whileTap={{ scale: 0.9 }}
                     aria-label={social.name}
                   >
