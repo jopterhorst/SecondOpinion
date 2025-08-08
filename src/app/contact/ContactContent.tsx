@@ -31,7 +31,7 @@ const ContactContent = () => {
       await new Promise(resolve => setTimeout(resolve, 2000))
       setSubmitStatus('success')
       setFormData({ name: '', email: '', subject: '', message: '' })
-    } catch (error) {
+    } catch {
       setSubmitStatus('error')
     } finally {
       setIsSubmitting(false)
@@ -286,8 +286,8 @@ const ContactContent = () => {
                   over hoop, vergeving en tweede kansen. Heb je vragen over geloof of zoek je iemand om mee te praten?
                 </p>
                 <p className="text-sm text-gray-400 italic">
-                  "Want Ik weet wel, wat voor gedachten Ik over u denk, spreekt de HEERE: 
-                  gedachten des vredes en niet des kwaads, dat Ik u geve een verwachte toekomst." - Jeremia 29:11
+                  &ldquo;Want Ik weet wel, wat voor gedachten Ik over u denk, spreekt de HEERE: 
+                  gedachten des vredes en niet des kwaads, dat Ik u geve een verwachte toekomst.&rdquo; - Jeremia 29:11
                 </p>
               </div>
 

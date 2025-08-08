@@ -94,7 +94,7 @@ const OverOnsContent = () => {
                     <Heart className="w-10 h-10 text-white" />
                   </div>
                   <h3 className="text-2xl font-bold text-white mb-4">
-                    "God heeft een plan voor jouw leven"
+                    &ldquo;God heeft een plan voor jouw leven&rdquo;
                   </h3>
                   <p className="text-gray-300 italic">
                     Want Ik weet wel, wat voor gedachten Ik over u denk, spreekt de HEERE: 
@@ -133,7 +133,7 @@ const OverOnsContent = () => {
             whileInView="whileInView"
             viewport={{ once: true }}
           >
-            {values.map((value, index) => (
+            {values.map((value) => (
               <motion.div
                 key={value.title}
                 className="text-center p-8 rounded-xl hover:shadow-lg transition-shadow duration-300"

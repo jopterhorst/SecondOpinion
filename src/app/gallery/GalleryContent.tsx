@@ -2,11 +2,21 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Play, X, Image as ImageIcon, Video, Calendar, Users } from 'lucide-react'
+import { Play, X, Image as ImageIcon, Video } from 'lucide-react'
+
+interface MediaItem {
+  id: number
+  type: 'image' | 'video'
+  src: string
+  thumbnail: string
+  alt: string
+  category: string
+  title: string
+}
 
 const GalleryContent = () => {
   const [selectedCategory, setSelectedCategory] = useState('all')
-  const [selectedMedia, setSelectedMedia] = useState<any>(null)
+  const [selectedMedia, setSelectedMedia] = useState<MediaItem | null>(null)
 
   const categories = [
     { key: 'all', label: 'Alles', icon: '🎭' },
@@ -17,7 +27,7 @@ const GalleryContent = () => {
   ]
 
   // Sample media items - replace with your actual content
-  const mediaItems = [
+  const mediaItems: MediaItem[] = [
     {
       id: 1,
       type: 'image',
@@ -85,7 +95,7 @@ const GalleryContent = () => {
     transition: { duration: 0.8 }
   }
 
-  const openLightbox = (media: any) => {
+  const openLightbox = (media: MediaItem) => {
     setSelectedMedia(media)
   }
 
@@ -103,7 +113,7 @@ const GalleryContent = () => {
               Galerij
             </h1>
             <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              Beleef de magie van Second Opinion door onze foto's en video's. 
+              Beleef de magie van Second Opinion door onze foto&apos;s en video&apos;s. 
               Van achter de schermen tot de hoogtepunten van de voorstelling.
             </p>
           </motion.div>

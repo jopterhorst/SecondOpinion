@@ -156,7 +156,7 @@ const CastCrewSection = () => {
             whileInView="whileInView"
             viewport={{ once: true, margin: "-100px" }}
           >
-            {mainCharacters.map((character, index) => (
+            {mainCharacters.map((character) => (
               <motion.div
                 key={character.name}
                 className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300"

@@ -74,7 +74,7 @@ const AboutSection = () => {
                 diagnose zet hun wereld op zijn kop en dwingt hen om hun prioriteiten te heroverwegen.
               </p>
               <p>
-                Wat begint als een zoektocht naar een "tweede mening" wordt een reis van ontdekking 
+                Wat begint als een zoektocht naar een &ldquo;tweede mening&rdquo; wordt een reis van ontdekking 
                 waarin ze leren dat de grootste geschenken niet onder de kerstboom liggen, maar 
                 in de liefde die we met elkaar delen.
               </p>
@@ -108,7 +108,7 @@ const AboutSection = () => {
           whileInView="whileInView"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {features.map((feature, index) => (
+          {features.map((feature) => (
             <motion.div
               key={feature.title}
               className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"

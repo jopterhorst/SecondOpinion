@@ -2,16 +2,25 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, Calendar, Clock, Users, MapPin, Ticket, CheckCircle, AlertCircle } from 'lucide-react'
+import { X, Calendar, Clock, Users, MapPin, Ticket, CheckCircle } from 'lucide-react'
 
 interface TicketModalProps {
   isOpen: boolean
   onClose: () => void
 }
 
+interface Show {
+  id: number
+  date: string
+  time: string
+  type: string
+  available: number
+  total: number
+}
+
 const TicketModal = ({ isOpen, onClose }: TicketModalProps) => {
   const [step, setStep] = useState<'select' | 'details' | 'confirmation'>('select')
-  const [selectedShow, setSelectedShow] = useState<any>(null)
+  const [selectedShow, setSelectedShow] = useState<Show | null>(null)
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -82,7 +91,7 @@ const TicketModal = ({ isOpen, onClose }: TicketModalProps) => {
     }))
   }
 
-  const handleShowSelect = (show: any) => {
+  const handleShowSelect = (show: Show) => {
     setSelectedShow(show)
     setStep('details')
   }
