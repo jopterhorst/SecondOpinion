@@ -1,10 +1,5 @@
 name = "second-opinion"
 compatibility_date = "2024-12-01"
 
-# Cloudflare Pages configuration for static site
-pages_build_output_dir = "out"
-
-# Build configuration
-[build]
-command = "npm run build"
-cwd = "."
+# This configuration is for Cloudflare Pages
+# The build output directory is 'out' for Next.js static export

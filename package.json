@@ -7,8 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "export": "npm run build",
-    "deploy": "echo 'Deploy the ./out folder contents to Cloudflare Pages manually or via GitHub integration'"
+    "export": "npm run build"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.7",
