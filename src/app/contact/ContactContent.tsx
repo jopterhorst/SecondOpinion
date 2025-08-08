@@ -78,13 +78,13 @@ const ContactContent = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800">
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+      <section className="pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div {...fadeInUp}>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4 sm:mb-6">
               We Horen Graag Van Je
             </h1>
-            <p className="text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed opacity-90">
+            <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed opacity-90">
               Heb je vragen over Second Opinion of gewoon meer weten over Upstream? 
               We staan klaar om je te helpen.
             </p>
@@ -270,7 +270,9 @@ const ContactContent = () => {
                   Tickets kunnen gereserveerd worden via onze externe partner.
                 </p>
                 <a 
-                  href="#" 
+                  href="https://upstream.cafe/kerst" 
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-block px-6 py-3 bg-christmas-red-600 text-white rounded-lg font-medium hover:bg-christmas-red-700 transition-colors"
                 >
                   Reserveer Tickets

@@ -106,13 +106,13 @@ const GalleryContent = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800">
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+      <section className="pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto text-center">
           <motion.div {...fadeInUp}>
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4 sm:mb-6">
               Galerij
             </h1>
-            <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
               Beleef de magie van Second Opinion door onze foto&apos;s en video&apos;s. 
               Van achter de schermen tot de hoogtepunten van de voorstelling.
             </p>
@@ -121,10 +121,10 @@ const GalleryContent = () => {
       </section>
 
       {/* Category Filter */}
-      <section className="px-4 sm:px-6 lg:px-8 mb-16">
+      <section className="px-4 sm:px-6 lg:px-8 mb-12 sm:mb-16">
         <div className="max-w-6xl mx-auto">
           <motion.div 
-            className="flex flex-wrap gap-4 justify-center"
+            className="flex flex-wrap gap-2 sm:gap-4 justify-center"
             {...fadeInUp}
             transition={{ delay: 0.2 }}
           >
@@ -132,7 +132,7 @@ const GalleryContent = () => {
               <motion.button
                 key={category.key}
                 onClick={() => setSelectedCategory(category.key)}
-                className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
+                className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full font-medium transition-all duration-300 text-sm sm:text-base ${
                   selectedCategory === category.key
                     ? 'bg-christmas-red-600 text-white shadow-lg scale-105'
                     : 'bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white border border-gray-600'
@@ -140,7 +140,7 @@ const GalleryContent = () => {
                 whileHover={{ scale: selectedCategory === category.key ? 1.05 : 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <span className="mr-2">{category.icon}</span>
+                <span className="mr-1 sm:mr-2">{category.icon}</span>
                 {category.label}
               </motion.button>
             ))}
@@ -149,10 +149,10 @@ const GalleryContent = () => {
       </section>
 
       {/* Gallery Grid */}
-      <section className="px-4 sm:px-6 lg:px-8 pb-24">
+      <section className="px-4 sm:px-6 lg:px-8 pb-16 sm:pb-24">
         <div className="max-w-6xl mx-auto">
           <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
             layout
           >
             <AnimatePresence>
@@ -267,18 +267,20 @@ const GalleryContent = () => {
       </AnimatePresence>
 
       {/* Call to Action */}
-      <section className="py-20 bg-gray-900">
+      <section className="py-16 sm:py-20 bg-gray-900">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div {...fadeInUp}>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6">
               Kom Naar De Voorstelling
             </h2>
-            <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg sm:text-xl text-gray-300 mb-6 sm:mb-8 max-w-2xl mx-auto">
               Ervaar Second Opinion live in Gebouw 055. Reserveer nu je gratis tickets voor deze bijzondere kerstmusical.
             </p>
             <motion.a
-              href="#"
-              className="inline-block bg-gradient-to-r from-christmas-red-600 to-christmas-red-700 hover:from-christmas-red-700 hover:to-christmas-red-800 text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+              href="https://upstream.cafe/kerst"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-gradient-to-r from-christmas-red-600 to-christmas-red-700 hover:from-christmas-red-700 hover:to-christmas-red-800 text-white font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >

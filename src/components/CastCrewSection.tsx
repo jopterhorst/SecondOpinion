@@ -90,7 +90,7 @@ const CastCrewSection = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-red-900 via-green-900 to-amber-900 py-32 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-red-900 via-green-900 to-amber-900 pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20 md:pb-32 overflow-hidden">
         <div className="absolute inset-0 bg-black/40" />
         
         {/* Animated Background Elements */}
@@ -262,13 +262,16 @@ const CastCrewSection = () => {
               Sluit je bij ons aan voor een onvergetelijke avond terwijl deze ongelofelijke performers 
               Second Opinion tot leven brengen op het podium.
             </p>
-            <motion.button
+            <motion.a
+              href="https://upstream.cafe/kerst"
+              target="_blank"
+              rel="noopener noreferrer"
               className="bg-white text-red-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors duration-300 shadow-xl"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               Reserveer Nu Je Plaatsen
-            </motion.button>
+            </motion.a>
           </motion.div>
         </div>
       </section>

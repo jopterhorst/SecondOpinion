@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight, Calendar, MapPin, Ticket } from 'lucide-react'
+import { ArrowRight, Calendar, MapPin, Ticket, ChevronDown } from 'lucide-react'
 
 const HeroSection = () => {
   // Pre-generate stable random values to avoid hydration issues
@@ -18,7 +18,7 @@ const HeroSection = () => {
   }, [])
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-emerald-950 via-red-950 to-amber-950">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-emerald-950 via-red-950 to-amber-950 pt-16 sm:pt-18 md:pt-20">
       {/* Background Image Overlay */}
       <div className="absolute inset-0 bg-black/40 z-10" />
       
@@ -54,7 +54,7 @@ const HeroSection = () => {
           transition={{ duration: 1, delay: 0.2 }}
           className="mb-8"
         >
-          <span className="inline-block px-4 py-2 rounded-full bg-red-600/20 text-red-300 text-sm font-medium border border-red-400/30 mb-6">
+          <span className="inline-block px-4 py-2 rounded-full bg-red-600/20 text-red-300 text-sm font-medium border border-red-400/30 mb-6 mt-6 sm:mt-8">
             Upstream Kerstmusical 2025
           </span>
           
@@ -112,13 +112,15 @@ const HeroSection = () => {
 
         {/* Call to Action Buttons */}
         <motion.div
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1 }}
         >
           <motion.a
-            href="#"
+            href="https://upstream.cafe/kerst"
+            target="_blank"
+            rel="noopener noreferrer"
             className="group bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 flex items-center gap-2 shadow-xl hover:shadow-2xl"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -128,11 +130,16 @@ const HeroSection = () => {
           </motion.a>
           
           <motion.button
+            onClick={() => {
+              const aboutSection = document.getElementById('about')
+              aboutSection?.scrollIntoView({ behavior: 'smooth' })
+            }}
             className="group bg-transparent border-2 border-white/30 hover:border-white/60 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 flex items-center gap-2 hover:bg-white/10"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             Meer Informatie
+            <ChevronDown className="w-5 h-5 group-hover:translate-y-1 transition-transform" />
           </motion.button>
         </motion.div>
       </div>

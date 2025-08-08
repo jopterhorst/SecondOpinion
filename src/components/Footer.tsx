@@ -19,7 +19,7 @@ const Footer = () => {
       { name: 'Over Second Opinion', href: '/' },
       { name: 'Cast & Crew', href: '/cast' },
       { name: 'Galerij', href: '/gallery' },
-      { name: 'Tickets Reserveren', href: '/contact' },
+      { name: 'Tickets Reserveren', href: 'https://upstream.cafe/kerst', external: true },
     ],
     upstream: [
       { name: 'Over Upstream', href: '/about' },
@@ -82,12 +82,23 @@ const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.musical.map((link) => (
                 <li key={link.name}>
-                  <Link 
-                    href={link.href}
-                    className="text-gray-300 hover:text-white transition-colors duration-300 text-sm"
-                  >
-                    {link.name}
-                  </Link>
+                  {link.external ? (
+                    <a 
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-300 hover:text-white transition-colors duration-300 text-sm"
+                    >
+                      {link.name}
+                    </a>
+                  ) : (
+                    <Link 
+                      href={link.href}
+                      className="text-gray-300 hover:text-white transition-colors duration-300 text-sm"
+                    >
+                      {link.name}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
