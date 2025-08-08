@@ -91,7 +91,7 @@ const HeroSection = () => {
           <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-6 text-left">
             <Calendar className="w-8 h-8 text-yellow-400 mb-3" />
             <h3 className="text-white font-semibold text-lg mb-2">Voorstellingen</h3>
-            <p className="text-gray-300">20-22 december 2025</p>
+            <p className="text-gray-300">13-14, 19-21 & 23-24 december 2025</p>
             <p className="text-gray-400 text-sm">Avond & Matinee Shows</p>
           </div>
           

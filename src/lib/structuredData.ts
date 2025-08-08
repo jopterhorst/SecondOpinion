@@ -6,8 +6,8 @@ export const musicalStructuredData = {
   "image": [
     "https://secondopinion.upstream.nl/images/second-opinion-poster.jpg"
   ],
-  "startDate": "2025-12-20T19:30",
-  "endDate": "2025-12-22T21:30",
+  "startDate": "2025-12-13T19:30",
+  "endDate": "2025-12-24T21:30",
   "eventStatus": "https://schema.org/EventScheduled",
   "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
   "location": {

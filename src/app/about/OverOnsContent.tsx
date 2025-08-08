@@ -1,9 +1,9 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Heart, Users, Book, MapPin, Mail } from 'lucide-react'
+import { Heart, Users, Coffee, Play, BookOpen, Search } from 'lucide-react'
 
-const OverOnsContent = () => {
+export default function OverOnsContent() {
   const fadeInUp = {
     initial: { opacity: 0, y: 60 },
     whileInView: { opacity: 1, y: 0 },
@@ -11,237 +11,175 @@ const OverOnsContent = () => {
     transition: { duration: 0.8 }
   }
 
-  const staggerContainer = {
-    initial: {},
-    whileInView: {
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  }
-
-  const values = [
+  const series = [
     {
-      icon: Heart,
-      title: "Hoop & Genezing",
-      description: "We geloven in de kracht van Gods liefde om gebroken levens te genezen en nieuwe hoop te brengen."
+      title: "Tot jij mijn liefde voelt",
+      description: "Hoe je huwelijk of relatie kunt verbeteren",
+      icon: Heart
     },
     {
-      icon: Book,
-      title: "Bijbelse Wijsheid",
-      description: "Gods Woord bevat praktische antwoorden voor alle levensvragen en uitdagingen die we tegenkomen."
+      title: "Hard tegen hart", 
+      description: "Over de verharding van de samenleving",
+      icon: Users
     },
     {
-      icon: Users,
-      title: "Gemeenschap",
-      description: "Samen zijn we sterker. We bouwen aan een gemeenschap waar iedereen welkom is en gewaardeerd wordt."
+      title: "Lees geen Bijbeltekst",
+      description: "Veelgehoorde bezwaren tegen de Bijbel onderzocht",
+      icon: BookOpen
+    },
+    {
+      title: "Leedvermaak",
+      description: "Over het lijden in deze wereld",
+      icon: Search
     }
   ]
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800">
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-to-br from-green-600 to-red-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            className="text-center"
-            {...fadeInUp}
-          >
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              Over Ons
+      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.div {...fadeInUp}>
+            <h1 className="text-5xl md:text-6xl font-bold text-white mb-8">
+              Over Upstream
             </h1>
-            <p className="text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed opacity-90">
-              Upstream - Een evangelisatie-initiatief geworteld in hoop, gemeenschap en de transformerende kracht van Gods liefde
+            <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              Een leidraad voor het leven - naast mensen staan in de uitdagingen en vragen van het leven
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Mission Section */}
-      <section className="py-20 bg-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <motion.div {...fadeInUp}>
-              <span className="inline-block px-4 py-2 rounded-full bg-green-900/40 text-green-300 text-sm font-medium mb-4">
-                Onze Missie
-              </span>
-              <h2 className="text-4xl font-bold text-white mb-6">
-                Licht in de Duisternis
-              </h2>
-              <div className="space-y-4 text-gray-300 leading-relaxed">
-                <p>
-                  In een wereld vol uitdagingen en onzekerheid, staat Upstream als een baken van hoop. 
-                  We geloven dat elke persoon, ongeacht hun achtergrond of omstandigheden, waardevol 
-                  is in Gods ogen en verdient het om geliefd en geaccepteerd te worden.
-                </p>
-                <p>
-                  Ons evangelisatie-initiatief richt zich op het delen van Gods liefde door middel 
-                  van authentieke relaties, praktische hulp en krachtige verhalen die levens transformeren. 
-                  We zijn er voor mensen die worstelen met levensvragen, relationele problemen, 
-                  verslavingen, of gewoon op zoek zijn naar doel en betekenis.
-                </p>
-              </div>
-            </motion.div>
+      {/* Main Content */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto">
+          <motion.div {...fadeInUp} className="mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-8 text-center">
+              Hoe sta jij in het leven?
+            </h2>
+            <div className="bg-gray-800 rounded-2xl p-8 shadow-xl border border-gray-700">
+              <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                Heb je alles op de rit of is het leven een flinke uitdaging voor je? In het algemeen is de 
+                Westerse wereld op bijna alle maatstaven welvarender dan ooit. Tegelijkertijd blijft het leven 
+                voor de meeste mensen vol obstakels.
+              </p>
+              <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                Denk bijvoorbeeld aan relaties die stroef lopen. Werkloosheid. Banen zonder betekenis. 
+                Gescheiden gezinnen en families. Stress, spanning en ziekte. Deze realiteit van het leven 
+                en in onze levens was de aanleiding voor Upstream...
+              </p>
+            </div>
+          </motion.div>
 
-            <motion.div 
-              className="relative"
-              {...fadeInUp}
-              transition={{ delay: 0.2 }}
-            >
-              <div className="bg-gray-800 rounded-2xl p-8 shadow-xl border border-gray-700">
-                <div className="text-center">
-                  <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-red-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <Heart className="w-10 h-10 text-white" />
+          <motion.div {...fadeInUp} className="mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-8 text-center">
+              Een leidraad voor het leven
+            </h2>
+            <div className="bg-gray-800 rounded-2xl p-8 shadow-xl border border-gray-700">
+              <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                Upstream is ontstaan vanuit het verlangen om naast mensen te gaan staan in de uitdagingen 
+                en vragen van het leven, omdat we hebben ontdekt dat de Bijbel een leidraad is die antwoorden, 
+                structuur en hoop biedt.
+              </p>
+              <p className="text-gray-300 text-lg leading-relaxed">
+                Bij Upstream vertrekken we daarom altijd vanuit een thema dat relevant is voor jouw leven.
+              </p>
+            </div>
+          </motion.div>
+
+          <motion.div {...fadeInUp} className="mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-8 text-center">
+              Geen aannames
+            </h2>
+            <div className="bg-gray-800 rounded-2xl p-8 shadow-xl border border-gray-700">
+              <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                Bij Upstream doen we geen aannames. Het vertrekpunt in alles wat we doen is dan ook dat het 
+                helemaal niet vanzelfsprekend is dat er überhaupt iets bovennatuurlijks bestaat.
+              </p>
+              <p className="text-gray-300 text-lg leading-relaxed">
+                Vanuit dit vertrekpunt willen we met je delen hoe we ervaren dat de God van de Bijbel antwoorden 
+                heeft op rationale vragen, maar ook het antwoord is op onze gevoelens en verlangens.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Series Grid */}
+          <motion.div {...fadeInUp} className="mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 text-center">
+              Onze Series
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {series.map((serie) => (
+                <motion.div
+                  key={serie.title}
+                  className="bg-gray-800 rounded-2xl p-8 shadow-xl border border-gray-700 hover:shadow-2xl transition-shadow duration-300"
+                  whileHover={{ scale: 1.02 }}
+                >
+                  <div className="flex items-start space-x-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-christmas-red-500 to-christmas-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+                      <serie.icon className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold text-white mb-3">
+                        {serie.title}
+                      </h3>
+                      <p className="text-gray-300">
+                        {serie.description}
+                      </p>
+                    </div>
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-4">
-                    &ldquo;God heeft een plan voor jouw leven&rdquo;
-                  </h3>
-                  <p className="text-gray-300 italic">
-                    Want Ik weet wel, wat voor gedachten Ik over u denk, spreekt de HEERE: 
-                    gedachten des vredes en niet des kwaads, dat Ik u geve een verwachte toekomst.
-                  </p>
-                  <p className="text-sm text-green-600 mt-2 font-medium">- Jeremia 29:11</p>
-                </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Studio Section */}
+          <motion.div {...fadeInUp}>
+            <div className="bg-gradient-to-br from-christmas-red-500/10 to-christmas-green-500/10 rounded-2xl p-8 shadow-xl border border-gray-700 text-center">
+              <div className="w-20 h-20 bg-gradient-to-br from-christmas-red-500 to-christmas-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Coffee className="w-10 h-10 text-white" />
               </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Values Section */}
-      <section className="py-20 bg-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            className="text-center mb-16"
-            {...fadeInUp}
-          >
-            <span className="inline-block px-4 py-2 rounded-full bg-red-900/40 text-red-300 text-sm font-medium mb-4">
-              Onze Waarden
-            </span>
-            <h2 className="text-4xl font-bold text-white mb-6">
-              Waar Wij Voor Staan
-            </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Onze waarden vormen de kern van alles wat we doen en bepalen hoe we mensen benaderen
-            </p>
-          </motion.div>
-
-          <motion.div 
-            className="grid md:grid-cols-3 gap-8"
-            variants={staggerContainer}
-            initial="initial"
-            whileInView="whileInView"
-            viewport={{ once: true }}
-          >
-            {values.map((value) => (
-              <motion.div
-                key={value.title}
-                className="text-center p-8 rounded-xl hover:shadow-lg transition-shadow duration-300"
-                variants={fadeInUp}
-              >
-                <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-red-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <value.icon className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-white mb-4">{value.title}</h3>
-                <p className="text-gray-300 leading-relaxed">{value.description}</p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Story Section */}
-      <section className="py-20 bg-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            className="max-w-4xl mx-auto text-center"
-            {...fadeInUp}
-          >
-            <h2 className="text-4xl font-bold text-white mb-8">
-              Praktische Antwoorden voor Levensvragen
-            </h2>
-            <div className="text-left space-y-6 text-gray-300 leading-relaxed">
-              <p className="text-lg">
-                <strong>Relatieproblemen?</strong> De Bijbel geeft duidelijke richtlijnen voor liefde, 
-                vergeving en het bouwen van gezonde relaties.
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+                Bezoek ook eens Upstream Studio
+              </h2>
+              <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                Je kunt Upstream online kijken en ons volgen op allerlei social media kanalen, maar online 
+                heeft natuurlijk ook beperkingen. Je bent niet de enige die zoekt naar God en antwoorden op 
+                levensvragen.
               </p>
-              <p className="text-lg">
-                <strong>Financiële zorgen?</strong> Gods Woord bevat wijsheid over rentmeesterschap, 
-                vrijgevigheid en vertrouwen op Gods voorzienigheid.
+              <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                In onze studio - Gebouw 055 te Apeldoorn - maken we elke zondagochtend een opname. We nodigen 
+                je graag uit voor deze live beleving.
               </p>
-              <p className="text-lg">
-                <strong>Angst en onzekerheid?</strong> De Bijbel biedt vrede die alle verstand te boven gaat 
-                en herinnert ons aan Gods trouwe zorg.
-              </p>
-              <p className="text-lg">
-                <strong>Verslavingen en destructief gedrag?</strong> Er is hoop voor bevrijding en 
-                vernieuwing door de kracht van Christus.
-              </p>
-              <p className="text-lg">
-                <strong>Eenzaamheid en isolatie?</strong> God roept ons tot gemeenschap en heeft 
-                ons geschapen voor betekenisvolle relaties.
-              </p>
-            </div>
-            
-            <div className="mt-12 p-8 bg-gradient-to-r from-green-600 to-red-600 rounded-xl text-white">
-              <h3 className="text-2xl font-bold mb-4">
-                Jij bent niet alleen in je strijd
-              </h3>
-              <p className="text-lg opacity-90">
-                Of je nu worstelt met verslaving, relationele problemen, financiële stress, 
-                of gewoon op zoek bent naar doel en richting in je leven - er is hoop. 
-                God heeft een plan voor je leven en wil je helpen om door te breken naar vrijheid en vreugde.
+              <p className="text-gray-300 text-lg leading-relaxed italic">
+                Haal een lekker bakje koffie of thee (uiteraard kosteloos) en neem je drankje gerust mee naar binnen!
               </p>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Contact Section */}
+      {/* Call to Action */}
       <section className="py-20 bg-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            className="text-center mb-12"
-            {...fadeInUp}
-          >
-            <h2 className="text-4xl font-bold text-white mb-6">
-              Neem Contact Op
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.div {...fadeInUp}>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Ervaar Second Opinion Live
             </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Heb je vragen, wil je meer weten over ons geloof, of heb je gewoon iemand nodig om mee te praten? 
-              We zijn er voor je.
+            <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+              Ontdek hoe Upstream de kerstboodschap tot leven brengt in onze bijzondere musical.
             </p>
-          </motion.div>
-
-          <motion.div 
-            className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto"
-            variants={staggerContainer}
-            initial="initial"
-            whileInView="whileInView"
-            viewport={{ once: true }}
-          >
-            <motion.div 
-              className="text-center p-6 bg-gray-800 rounded-xl border border-gray-700"
-              variants={fadeInUp}
+            <motion.a
+              href="/contact"
+              className="inline-block bg-gradient-to-r from-christmas-red-600 to-christmas-red-700 hover:from-christmas-red-700 hover:to-christmas-red-800 text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <Mail className="w-8 h-8 text-green-400 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-white mb-2">Email</h3>
-              <p className="text-gray-300">info@upstream.nl</p>
-            </motion.div>
-
-            <motion.div 
-              className="text-center p-6 bg-gray-800 rounded-xl border border-gray-700"
-              variants={fadeInUp}
-            >
-              <MapPin className="w-8 h-8 text-green-400 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-white mb-2">Locatie</h3>
-              <p className="text-gray-300">Nederland</p>
-            </motion.div>
+              Meer Informatie
+            </motion.a>
           </motion.div>
         </div>
       </section>
     </div>
   )
 }
-
-export default OverOnsContent

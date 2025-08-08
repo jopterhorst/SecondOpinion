@@ -33,6 +33,46 @@ const TicketModal = ({ isOpen, onClose }: TicketModalProps) => {
   const shows = [
     {
       id: 1,
+      date: '2025-12-13',
+      time: '19:30',
+      type: 'Avondvoorstelling',
+      available: 85,
+      total: 100
+    },
+    {
+      id: 2,
+      date: '2025-12-14',
+      time: '15:00',
+      type: 'Matinee',
+      available: 92,
+      total: 100
+    },
+    {
+      id: 3,
+      date: '2025-12-14',
+      time: '19:30',
+      type: 'Avondvoorstelling',
+      available: 78,
+      total: 100
+    },
+    {
+      id: 4,
+      date: '2025-12-19',
+      time: '19:30',
+      type: 'Avondvoorstelling',
+      available: 67,
+      total: 100
+    },
+    {
+      id: 5,
+      date: '2025-12-20',
+      time: '15:00',
+      type: 'Matinee',
+      available: 73,
+      total: 100
+    },
+    {
+      id: 6,
       date: '2025-12-20',
       time: '19:30',
       type: 'Avondvoorstelling',
@@ -40,35 +80,43 @@ const TicketModal = ({ isOpen, onClose }: TicketModalProps) => {
       total: 100
     },
     {
-      id: 2,
+      id: 7,
       date: '2025-12-21',
-      time: '14:00',
+      time: '15:00',
       type: 'Matinee',
+      available: 58,
+      total: 100
+    },
+    {
+      id: 8,
+      date: '2025-12-21',
+      time: '19:30',
+      type: 'Avondvoorstelling',
       available: 32,
       total: 100
     },
     {
-      id: 3,
-      date: '2025-12-21',
+      id: 9,
+      date: '2025-12-23',
       time: '19:30',
       type: 'Avondvoorstelling',
-      available: 18,
+      available: 41,
       total: 100
     },
     {
-      id: 4,
-      date: '2025-12-22',
-      time: '14:00',
-      type: 'Matinee',
-      available: 67,
+      id: 10,
+      date: '2025-12-24',
+      time: '15:00',
+      type: 'Kerst Matinee',
+      available: 29,
       total: 100
     },
     {
-      id: 5,
-      date: '2025-12-22',
+      id: 11,
+      date: '2025-12-24',
       time: '19:30',
-      type: 'Avondvoorstelling (Laatste)',
-      available: 23,
+      type: 'Kerstavond Voorstelling',
+      available: 15,
       total: 100
     },
   ]

@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Second Opinion | Upstream Kerstmusical 2025",
-  description: "Ervaar de transformerende kerstmusical Second Opinion door Upstream - een verhaal van hoop, verlossing en tweede kansen. 20-22 december 2025.",
+  description: "Ervaar de transformerende kerstmusical Second Opinion door Upstream - een verhaal van hoop, verlossing en tweede kansen. 13-14, 19-21 & 23-24 december 2025.",
   keywords: ["kerstmusical", "Second Opinion", "Upstream", "Kerst 2025", "evangelisatie", "theater", "kerk", "musical"],
   authors: [{ name: "Upstream" }],
   openGraph: {
