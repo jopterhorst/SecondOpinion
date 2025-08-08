@@ -6,7 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "export": "npm run build",
+    "deploy": "echo 'Deploy the ./out folder contents to Cloudflare Pages manually or via GitHub integration'"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.7",
