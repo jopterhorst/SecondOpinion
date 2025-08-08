@@ -1,5 +1,0 @@
-name = "second-opinion"
-compatibility_date = "2024-12-01"
-
-# This configuration is for Cloudflare Pages
-# The build output directory is 'out' for Next.js static export
